@@ -1,0 +1,22 @@
+package test;
+
+import livro.Livro;
+import static org.junit.Assert.fail;
+
+import org.junit.Test;
+
+import junit.framework.Assert;
+
+public class LivroTest {
+	
+	private Livro livro;
+
+	@Test
+	public void testCriar() {
+		livro.criar();
+		Livro outro = new Livro();
+		outro.carregar();
+		assertEquals ("Devem ser iguais", livro, outro);
+	}
+
+}

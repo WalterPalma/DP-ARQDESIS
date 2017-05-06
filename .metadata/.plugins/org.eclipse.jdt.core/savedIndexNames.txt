@@ -1,0 +1,5 @@
+INDEX VERSION 1.130+C:\Users\wfpal\Documents\Workspace\DP-ARQDESIS\.metadata\.plugins\org.eclipse.jdt.core
+3989462555.index
+3353442650.index
+2060190659.index
+3047366433.index

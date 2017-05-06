@@ -1,0 +1,123 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class Livro {
+
+	private int id;
+	private String titulo;
+	private String autor;
+	private int ano;
+	private int edicao;
+	private String iSBN;
+	
+	public Livro(int id, String titulo, String autor, int ano, int edicao, String iSBN){
+		setId(id);
+		setTitulo(titulo);
+		setAutor(autor);
+		setAno(ano);
+		setEdicao(edicao);
+		setiSBN(iSBN);
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getAutor() {
+		return autor;
+	}
+
+	public void setAutor(String autor) {
+		this.autor = autor;
+	}
+
+	public int getAno() {
+		return ano;
+	}
+
+	public void setAno(int ano) {
+		this.ano = ano;
+	}
+
+	public int getEdicao() {
+		return edicao;
+	}
+
+	public void setEdicao(int edicao) {
+		this.edicao = edicao;
+	}
+
+	public String getiSBN() {
+		return iSBN;
+	}
+
+	public void setiSBN(String iSBN) {
+		this.iSBN = iSBN;
+	}
+
+	public void criar() {
+		String sql = "INSERT INTO livro (titulo, autor, ano, edicao, isbn) VALUES(?,?,?,?,?)";
+		try (Connection conn = DriverManager.getConnection("jbdc:mysql://localhost/livros_biblioteca", "root", "root");
+				PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, titulo);
+			ps.setString(2, autor);
+			ps.setInt(3, ano);
+			ps.setInt(4, edicao);
+			ps.setString(5, iSBN);
+			ps.execute();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void apagar() {
+		String sql = "DELETE FROM livro WHERE id = ?";
+		try (Connection conn = DriverManager.getConnection("jbdc:mysql://localhost/livros_biblioteca", "root", "root");
+				PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setInt(1, id);
+			ps.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	static {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+		public void carregar(){
+			String sql = "SELECT * FROM livro WHERE id = ?";
+			try (Connection conn = DriverManager.getConnection("jbdc:mysql://localhost/livros_biblioteca", "root", "root");
+					PreparedStatement ps = conn.prepareStatement(sql)) {
+				ps.setInt(1, id);
+				try(ResultSet rs = ps.executeQuery();){
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+			
+		}
+		
+		
+	
